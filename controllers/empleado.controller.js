@@ -26,7 +26,9 @@ exports.updateEmpleado = async (req, res) => {
 };
 
 exports.deleteEmpleado = async (req, res) => {
-    const deleted = await empleadoService.remove(req.params.id);
+    //desactiva el empleado en lugar de eliminarlo físicamente
+    const deleted = await empleadoService.update(req.params.id, { activo: false });
+
     if (!deleted) {
         return res.status(404).json({ message: 'empleado no encontrado' });
     }
